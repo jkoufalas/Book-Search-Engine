@@ -15,10 +15,14 @@ import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
-
+  console.log("got here");
   const { loading, data } = useQuery(QUERY_ME);
-
+  console.log("got here 1");
+  console.log(data);
+  console.log(userData);
   setUserData(data?.me || {});
+  console.log("got here 2");
+  console.log(userData);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -43,16 +47,23 @@ const SavedBooks = () => {
       console.error(err);
     }
   };
+  console.log("got here 3");
 
   // if data isn't here yet, say so
+
   if (loading) {
+    console.log("got here 4");
+    console.log(`-----------Loading:  ${loading}`);
     return <h2>LOADING...</h2>;
   }
+  console.log("got here 5");
+  console.log(`-----------Loading:  ${loading}`);
 
   return (
     <>
       <Jumbotron fluid className="text-light bg-dark">
         <Container>
+          {console.log(userData)}
           <h1>Viewing saved books!</h1>
         </Container>
       </Jumbotron>
