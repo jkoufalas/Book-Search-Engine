@@ -4,9 +4,15 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    users: async () => {
+      return User.find();
+    },
     me: async (parent, args, context) => {
+      console.log("got here 1 ----------------------");
+      console.log(context.user);
+
       if (context.user) {
-        console.log("got here 1 ----------------------");
+        console.log("got here 2 ----------------------");
         console.log(context.user);
         return User.findOne({ _id: context.user._id });
       }
@@ -24,7 +30,6 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
-      console.log(user);
       if (!user) {
         throw new AuthenticationError("No profile with this email found!");
       }
@@ -41,6 +46,8 @@ const resolvers = {
 
     // Add a third argument to the resolver to access data in our `context`
     saveBook: async (parent, { BookData }, context) => {
+      console.log("got here 1 ----------------------");
+
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
         return User.findOneAndUpdate(
