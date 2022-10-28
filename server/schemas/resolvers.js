@@ -8,12 +8,7 @@ const resolvers = {
       return User.find();
     },
     me: async (parent, args, context) => {
-      console.log("got here 1 ----------------------");
-      console.log(context.user);
-
       if (context.user) {
-        console.log("got here 2 ----------------------");
-        console.log(context.user);
         return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
