@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   Jumbotron,
@@ -13,16 +13,19 @@ import { deleteBook } from "../utils/API";
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
+const initialState = {
+  savedBooks: [],
+};
+
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
-  console.log("got here");
+  const [userData, setUserData] = useState(initialState);
   const { loading, data } = useQuery(QUERY_ME);
-  console.log("got here 1");
-  console.log(data);
-  console.log(userData);
-  setUserData(data?.me || {});
-  console.log("got here 2");
-  console.log(userData);
+
+  //setUserData(data?.me || {});
+
+  useEffect(() => {
+    setUserData(data?.me || initialState);
+  }, []);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -47,23 +50,23 @@ const SavedBooks = () => {
       console.error(err);
     }
   };
-  console.log("got here 3");
+  console.log("got here 1");
 
   // if data isn't here yet, say so
 
   if (loading) {
-    console.log("got here 4");
+    console.log("got here 2");
     console.log(`-----------Loading:  ${loading}`);
     return <h2>LOADING...</h2>;
   }
-  console.log("got here 5");
-  console.log(`-----------Loading:  ${loading}`);
+  console.log("got here 3");
 
   return (
     <>
       <Jumbotron fluid className="text-light bg-dark">
         <Container>
           {console.log(userData)}
+          {console.log(data)}
           <h1>Viewing saved books!</h1>
         </Container>
       </Jumbotron>
