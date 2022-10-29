@@ -40,9 +40,9 @@ const resolvers = {
     },
 
     // Add a third argument to the resolver to access data in our `context`
-    //{ book: { authors, description, title, bookId, image, link } },
     saveBook: async (parent, { input }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
+      console.log("*******************************saveBook");
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -60,6 +60,7 @@ const resolvers = {
     },
     // Make it so a logged in user can only remove a skill from their own profile
     removeBook: async (parent, { bookId }, context) => {
+      console.log("*******************************removeBook");
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
