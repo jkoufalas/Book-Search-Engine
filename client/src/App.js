@@ -1,4 +1,6 @@
 import React from "react";
+
+//import apollo client parameters
 import {
   ApolloClient,
   InMemoryCache,

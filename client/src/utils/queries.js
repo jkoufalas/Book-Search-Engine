@@ -17,13 +17,3 @@ export const QUERY_ME = gql`
     }
   }
 `;
-
-export const QUERY_USER = gql`
-  query users {
-    users {
-      _id
-      username
-      email
-    }
-  }
-`;

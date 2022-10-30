@@ -8,10 +8,11 @@ import {
   Card,
   CardColumns,
 } from "react-bootstrap";
-
+//import the useQuery and useMutation from the apollo client API
 import { useMutation } from "@apollo/client";
 
 import Auth from "../utils/auth";
+// import SAVE_BOOK from the mutations file
 import { SAVE_BOOK } from "../utils/mutations";
 
 import { searchGoogleBooks } from "../utils/API";
@@ -32,6 +33,7 @@ const SearchBooks = () => {
     return () => saveBookIds(savedBookIds);
   });
 
+  //setup mutation accessor and if there is an error
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // create method to search for books and set state on form submit
@@ -79,6 +81,7 @@ const SearchBooks = () => {
     }
 
     try {
+      // use mutation to save book to database using the bookToSave variable's data
       await saveBook({
         variables: { bookToSave },
       });

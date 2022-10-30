@@ -1,7 +1,9 @@
 // see SignupForm.js for comments
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
+//import useMutation from the apollo clien API
 import { useMutation } from "@apollo/client";
+//import the LOGIN mutation from utilities
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
@@ -10,6 +12,7 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
+  //setup the mutation LOGIN_USER and assign the accessor method to be loginUser
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
@@ -28,10 +31,12 @@ const LoginForm = () => {
     }
 
     try {
+      //  use mutation and submit the variable of the user from the Form data
+      // the returned data is the user
       const { data } = await loginUser({
         variables: { ...userFormData },
       });
-
+      //use the created user to submit the token to the Auth utility for local storage
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
