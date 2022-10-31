@@ -65,7 +65,15 @@ This will use the global package.json file and use the scripts in there to call 
 
 ## Executing Instructions
 
-This will use the global package.json file again and use the scripts in there to concurrently call both the client start and server start scripts. This will have both applications running for the overall application to be working.
+This will use the global package.json file again and use the scripts in there. <br>
+
+For running just the server to use
+
+```
+npm run start
+```
+
+For running both the server and client concurrently.
 
 ```
 npm run develop
